@@ -1,0 +1,17 @@
+<p-table [value]="DATA" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+    <tr>
+      <ng-container *ngFor="let h of headers">
+        <th *ngIf="h !== 'actions'">{{h}}</th>
+        <th *ngIf="h === 'actions'"></th>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr *ngFor="let h of headers">
+      <td *ngIf="h !== 'actions'">{{displayData(h, data)}}</td>
+      <td *ngIf="h === 'actions'">
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

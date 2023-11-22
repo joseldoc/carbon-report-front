@@ -1,0 +1,16 @@
+<div class="grid">
+  <div class="col-2"></div>
+  <div class="col">
+    <div class="text-center">
+      <h3>{{dataConst.wording.titleListVideos}}</h3>
+    </div>
+    <hr>
+    <app-data-table
+      [COLUMNS]="headers"
+      [DATA]="videos"
+      [haveActions]="false"
+      (selectRow)="selectElement($event)">
+    </app-data-table>
+  </div>
+  <div class="col-2"></div>
+</div>
