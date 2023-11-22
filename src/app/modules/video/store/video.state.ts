@@ -1,6 +1,7 @@
 import {VideoInterface} from '../model/video.interface';
 
 export interface VideoState {
-  videos: VideoInterface[],
+  videos: ReadonlyArray<VideoInterface>,
+  selected: VideoInterface | null,
   error: string
 }

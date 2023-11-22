@@ -1,1 +1,8 @@
-<p>Liste des utilisateurs</p>
+<!-- dumb component list video -->
+<app-video-list
+  [videos]="videos"
+  [headers]="headers"
+  (video)="onSelectElement($event)"
+>
+</app-video-list>
+<!-- Dumb component paginator -->

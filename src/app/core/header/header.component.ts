@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('Hello');
     // dispatch navigation menus
     this._store.dispatch(NavigationActions.navigation());
 
@@ -33,7 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$))
       .subscribe((result) => {
         this.menus = result;
-        console.log(result);
       });
   }
 

@@ -4,31 +4,31 @@ import {VideoInterface} from '../model/video.interface';
 export namespace VideoActions {
 
   export enum VideoActionsType {
-    // list
-    LIST_VIDEO = '[VIDEO] LIST_INVOKE',
+    // List
+    LIST_VIDEO_INVOKE = '[VIDEO] LIST_INVOKE',
     LIST_VIDEO_SUCCESS = '[VIDEO] LIST_SUCCESS',
-    LIST_VIDEO_ERROR = '[VIDEO] LIST_ERROR',
-    // get element
+    LIST_VIDEO_ERROR = '[VALUE] LIST_ERROR',
+    // Get element
     GET_VIDEO = '[VIDEO] GET_INVOKE',
     GET_VIDEO_SUCCESS = '[VIDEO] GET_SUCCESS',
     GET_VIDEO_ERROR = '[VIDEO] GET_ERROR'
   }
 
   export const listVideo = createAction(
-    VideoActionsType.LIST_VIDEO
+    VideoActionsType.LIST_VIDEO_INVOKE
   );
   export const listVideoSuccess = createAction(
     VideoActionsType.LIST_VIDEO_SUCCESS,
-    props<{ videos: VideoInterface }>()
+    props<{ videos: VideoInterface[] }>()
   );
-  export const listVideoSuccess = createAction(
+  export const listVideoError = createAction(
     VideoActionsType.LIST_VIDEO_ERROR,
     props<{ error: string }>()
   );
 
   export const getVideo = createAction(
     VideoActionsType.GET_VIDEO,
-    props<{ video: VideoInterface }>()
+    props<{ id: number }>()
   );
   export const getVideoSuccess = createAction(
     VideoActionsType.GET_VIDEO_SUCCESS,
