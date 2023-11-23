@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../../video/model/video.interface';
 import {DataSelectInterface} from '../../../../shared/model/data-select.interface';
@@ -10,7 +10,8 @@ import {selectLoading} from '../../../../shared/store/load';
 @Component({
   selector: 'app-form-report-container',
   templateUrl: './form-report-container.component.html',
-  styleUrls: ['./form-report-container.component.css']
+  styleUrls: ['./form-report-container.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormReportContainerComponent implements OnInit, OnDestroy {
 
