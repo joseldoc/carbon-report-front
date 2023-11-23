@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {VideoService} from '../../service/video.service';
 import {Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../model/video.interface';
 import {ColumnTableInterface} from '../../../../shared/model/column.interface';
 import {DataActionEmitInterface} from '../../../../core/data-table/data-action-emit.interface';
+import {selectVideos, VideoActions, VideoState} from '../../store';
+import {select, Store} from '@ngrx/store';
+import {selectLoading} from '../../../../shared/store/load';
 
 @Component({
   selector: 'app-list-video-container',
@@ -12,7 +14,7 @@ import {DataActionEmitInterface} from '../../../../core/data-table/data-action-e
 })
 export class ListVideoContainerComponent implements OnInit, OnDestroy {
   // streams
-  videos$: Observable<VideoInterface[]>;
+  videos$: Observable<ReadonlyArray<VideoInterface>> = this._store.pipe(select(selectVideos));
   videos: VideoInterface[];
   destroyed$: Subject<void> = new Subject<void>();
 
@@ -23,7 +25,9 @@ export class ListVideoContainerComponent implements OnInit, OnDestroy {
     {headerName: 'Qualité', fieldName: 'video_quality', isModelProperty: true},
   ];
 
-  constructor(private _service: VideoService) {
+  loading$: Observable<boolean> = this._store.pipe(select(selectLoading));
+
+  constructor(private _store: Store<VideoState>) {
   }
 
   ngOnInit() {
@@ -31,11 +35,11 @@ export class ListVideoContainerComponent implements OnInit, OnDestroy {
   }
 
   getVideos(): void {
-    this.videos$ = this._service.list();
+    this._store.dispatch(VideoActions.listVideo());
     this.videos$.pipe(
       takeUntil(this.destroyed$)
-    ).subscribe((result: VideoInterface[]) => {
-      this.videos = result;
+    ).subscribe((result: ReadonlyArray<VideoInterface>) => {
+      this.videos = [...result];
     });
   }
 

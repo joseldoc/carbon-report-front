@@ -1,3 +1,3 @@
 export enum ActionTableEnum {
-  CARBON_GENERATE = 'CARBON_GENERATE',
+  ENCODE_GENERATE = 'ENCODE_GENERATE',
 }

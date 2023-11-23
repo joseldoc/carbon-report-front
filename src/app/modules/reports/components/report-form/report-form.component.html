@@ -16,7 +16,10 @@
       </p-multiSelect>
     </div>
     <div class="field">
-      <p-button [label]="dataConst.forms.generate" type="sumbit"></p-button>
+      <p-button
+        [disabled]="reportForm.invalid"
+        [loading]="loading"
+        [label]="dataConst.forms.generate" type="sumbit"></p-button>
     </div>
   </div>
 </form>

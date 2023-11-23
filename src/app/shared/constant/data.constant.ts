@@ -10,5 +10,8 @@ export const GENERAL_DATA_CONST = {
     view: 'Vue',
     videos: 'videos',
     generate: 'Générer'
+  },
+  error: {
+    errorFetchList: 'Impossible d\'afficher la liste',
   }
 }
