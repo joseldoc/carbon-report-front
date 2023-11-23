@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {map, Observable, Subject, takeUntil} from 'rxjs';
+import {Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../../video/model/video.interface';
 import {DataSelectInterface} from '../../../../shared/model/data-select.interface';
 import {FormActionsEnum} from '../../../../shared/enums/form-action.enum';
 import {select, Store} from '@ngrx/store';
-import {VideoActions, VideoState} from '../../../video/store';
+import {selectVideos, VideoActions, VideoState} from '../../../video/store';
 import {selectLoading} from '../../../../shared/store/load';
 
 @Component({
@@ -14,7 +14,7 @@ import {selectLoading} from '../../../../shared/store/load';
 })
 export class FormReportContainerComponent implements OnInit, OnDestroy {
 
-  videos$: Observable<VideoInterface[]>;
+  videos$: Observable<ReadonlyArray<VideoInterface>> = this._store.pipe(select(selectVideos));
   videos: DataSelectInterface[];
   destroyed$: Subject<void> = new Subject<void>();
 
@@ -30,30 +30,27 @@ export class FormReportContainerComponent implements OnInit, OnDestroy {
     ).subscribe((result) => {
       this.loading = result;
     })
-    this._store.dispatch(VideoActions.listVideo());
     this.getVideos();
   }
 
   getVideos(): void {
+    this._store.dispatch(VideoActions.listVideo());
     this.videos$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((result: ReadonlyArray<VideoInterface>) => {
-      this.videos = this.formatObservableToDataSelect([...result]);
+      if (result.length != 0) {
+        this.videos = this.formatObservableToDataSelect([...result]);
+      }
     });
   }
 
   formatObservableToDataSelect(datas: any): DataSelectInterface[] {
-    return datas.pipe(
-      map((data: any[]) => {
-        if (!data) return [];
-        return data.map((elt) => {
-          return {
-            name: elt.name,
-            code: elt.code
-          }
-        })
-      })
-    )
+    return datas.map((data: any) => {
+      return {
+        code: data.id,
+        name: data.name
+      }
+    })
   }
 
   formAction(data: { value: any, action: FormActionsEnum }): void {

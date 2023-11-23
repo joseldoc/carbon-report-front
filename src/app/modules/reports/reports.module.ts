@@ -9,6 +9,9 @@ import {FormReportContainerComponent} from './pages/form-report-container/form-r
 import {ReportFormComponent} from './components/report-form/report-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {EffectsModule} from '@ngrx/effects';
+import {VIDEO_STATE_NAME, VideoEffect, VideoReducer} from '../video/store';
+import {StoreModule} from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import {MultiSelectModule} from 'primeng/multiselect';
     DataTableComponent,
     ButtonModule,
     MultiSelectModule,
-    ButtonModule
+    ButtonModule,
+
+    EffectsModule.forFeature([VideoEffect]),
+    StoreModule.forFeature(VIDEO_STATE_NAME, VideoReducer.reducer)
   ]
 })
 
