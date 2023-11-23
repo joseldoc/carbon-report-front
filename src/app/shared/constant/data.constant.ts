@@ -1,6 +1,7 @@
 export const GENERAL_DATA_CONST = {
   wording: {
     titleApp: 'Rapport Carbone',
-    titleListVideos: 'Liste des videos'
+    titleListVideos: 'Liste des videos',
+    generateCarbon: 'Générer Carbone'
   }
 }

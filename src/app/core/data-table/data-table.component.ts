@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgFor, NgIf} from '@angular/common';
 import {TableModule} from 'primeng/table';
-import {ColumnTableInterface, TableActionEmitInterface} from '../../shared/model/column.interface';
+import {ColumnTableInterface} from '../../shared/model/column.interface';
 import {ActionTableEnum} from './action-table.enum';
 
 @Component({
@@ -20,12 +20,16 @@ export class DataTableComponent<T> implements OnInit {
 
   headers: string[] = [];
   actionsEnum = ActionTableEnum;
-  @Output() selectRow = new EventEmitter<TableActionEmitInterface<T>>();
+  @Output() selectRows = new EventEmitter<T[]>();
+
+  selectedData: T[];
+
+  actionTable = ActionTableEnum;
 
   ngOnInit() {
     this.headers = this.COLUMNS.map((elt: ColumnTableInterface<T>) => elt.headerName);
     if (this.haveActions) this.headers.push("actions");
-    //this.headers.unshift('selected');
+    this.headers.unshift('selected');
   }
 
   /**
@@ -44,7 +48,7 @@ export class DataTableComponent<T> implements OnInit {
    * @param elt
    * @param action
    */
-  selectElement(elt: T, action: ActionTableEnum) {
-    this.selectRow.emit({element: elt, action});
+  onSelectClick() {
+    this.selectRows.emit(this.selectedData);
   }
 }

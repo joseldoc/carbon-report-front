@@ -1,17 +1,27 @@
-<p-table [value]="DATA" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
+<p-table [(selection)]="selectedData" [value]="DATA" [scrollable]="true" scrollHeight="400px"
+         styleClass="p-datatable-gridlines"
+         [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
     <tr>
       <ng-container *ngFor="let h of headers">
-        <th *ngIf="h !== 'actions'">{{h}}</th>
+        <th style="width: 4rem" *ngIf="h == 'selected'" (click)="onSelectClick()">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngIf="h !== 'actions' && h !== 'selected'">{{h}}</th>
         <th *ngIf="h === 'actions'"></th>
       </ng-container>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-data>
-    <tr *ngFor="let h of headers">
-      <td *ngIf="h !== 'actions'">{{displayData(h, data)}}</td>
-      <td *ngIf="h === 'actions'">
-      </td>
+    <tr>
+      <ng-container *ngFor="let h of headers">
+        <td *ngIf="h == 'selected'" (click)="onSelectClick()">
+          <p-tableCheckbox [value]="data"></p-tableCheckbox>
+        </td>
+        <td *ngIf="h !== 'actions' && h !== 'selected'">{{displayData(h, data)}}</td>
+        <td *ngIf="h === 'actions'">
+        </td>
+      </ng-container>
     </tr>
   </ng-template>
 </p-table>

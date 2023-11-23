@@ -1,0 +1,22 @@
+<form (ngSubmit)="emitAction()"
+      [formGroup]="reportForm">
+  <div class="m-4">
+    <div class="field">
+      <label for="firstname1"></label>
+      <input id="firstname1" type="text" formControlName="'vue'"
+             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    </div>
+    <div class="filed">
+      <p-multiSelect
+        [options]="videos"
+        [formControlName]="'videos'"
+        optionLabel="name"
+        placeholder="Select videos"
+      >
+      </p-multiSelect>
+    </div>
+    <div class="field">
+      <p-button label="Valider" type="sumbit"></p-button>
+    </div>
+  </div>
+</form>
