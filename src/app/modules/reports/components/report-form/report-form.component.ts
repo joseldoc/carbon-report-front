@@ -19,11 +19,12 @@ export class ReportFormComponent implements OnInit {
   @Input() loading: boolean = false;
 
   constructor(private fb: FormBuilder) {
+
   }
 
   ngOnInit() {
     this.reportForm = this.fb.group({
-      videos: [this.videos, Validators.required],
+      selectedVideos: [[], Validators.required],
       vue: ['']
     });
   }

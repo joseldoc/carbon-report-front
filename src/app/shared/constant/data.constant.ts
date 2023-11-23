@@ -7,8 +7,8 @@ export const GENERAL_DATA_CONST = {
   forms: {
     vueLabel: 'Nombre de vue',
     selectVideoLabel: 'Selection video',
-    view: 'Vue',
-    videos: 'videos',
+    view: 'vue',
+    selectedVideo: 'selectedVideos',
     generate: 'Générer'
   },
   error: {
