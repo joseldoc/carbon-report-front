@@ -1,0 +1,9 @@
+<!-- dumb component list video -->
+<app-video-list
+  [videos]="videos"
+  [headers]="headers"
+  (videoAction)="onSelectElement($event)"
+  [loading]="loading$ | async"
+>
+</app-video-list>
+<!-- Dumb component paginator -->
