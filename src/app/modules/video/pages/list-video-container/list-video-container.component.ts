@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VideoService} from '../../service/video.service';
 import {Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../model/video.interface';
@@ -9,7 +9,6 @@ import {DataActionEmitInterface} from '../../../../core/data-table/data-action-e
   selector: 'app-list-video-container',
   templateUrl: './list-video-container.component.html',
   styleUrls: ['./list-video-container.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListVideoContainerComponent implements OnInit, OnDestroy {
   // streams
@@ -37,11 +36,10 @@ export class ListVideoContainerComponent implements OnInit, OnDestroy {
       takeUntil(this.destroyed$)
     ).subscribe((result: VideoInterface[]) => {
       this.videos = result;
-    })
+    });
   }
 
   onSelectElement(event: DataActionEmitInterface<VideoInterface>): void {
-    console.log(event);
   }
 
   ngOnDestroy() {

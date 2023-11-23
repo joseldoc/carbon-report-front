@@ -5,14 +5,14 @@ export const MENU_NAVIGATION: MenuItem[] = [
     id: '1',
     label: 'Video',
     icon: 'pi pi-fw pi-video',
-    routerLink: '',
+    routerLink: ['/videos'],
     visible: true
   },
   {
     id: '2',
-    label: 'Dossier',
+    label: 'Génération de rapport',
     icon: 'pi pi-fw pi-folder',
     visible: true,
-    routerLink: ''
+    routerLink: ['/report']
   }
 ];

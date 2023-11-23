@@ -1,6 +1,3 @@
 export enum ActionTableEnum {
-  EDIT = 'EDIT',
-  DELETE = 'DELETE',
-  VIEW = 'VIEW',
-  SEARCH = 'SEARCH',
+  CARBON_GENERATE = 'CARBON_GENERATE',
 }

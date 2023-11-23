@@ -5,13 +5,18 @@ import {LayoutComponent} from './layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'videos',
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'videos',
     component: LayoutComponent,
     loadChildren: () => import('./modules/video/video.module').then(m => m.VideoModule)
+  },
+  {
+    path: 'report',
+    component: LayoutComponent,
+    loadChildren: () => import('./modules/reports/reports.module').then(m => m.ReportsModule)
   }
 ];
 
