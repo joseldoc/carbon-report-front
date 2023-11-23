@@ -15,10 +15,10 @@ export class VideoListComponent {
 
   @Input() videos: VideoInterface[];
   @Input() headers: ColumnTableInterface<VideoInterface>[];
+  @Input() loading: boolean | null = false;
   @Output() videoAction = new EventEmitter<DataActionEmitInterface<VideoInterface>>();
   selectedVideos: VideoInterface[] = [];
   dataConst = GENERAL_DATA_CONST;
-
 
   constructor() {
   }
@@ -30,7 +30,7 @@ export class VideoListComponent {
   emitGenerateValue() {
     this.videoAction.emit({
       data: this.selectedVideos,
-      action: ActionTableEnum.CARBON_GENERATE
+      action: ActionTableEnum.ENCODE_GENERATE
     })
   }
 }

@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {map, Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../../video/model/video.interface';
-import {VideoService} from '../../../video/service/video.service';
 import {DataSelectInterface} from '../../../../shared/model/data-select.interface';
 import {FormActionsEnum} from '../../../../shared/enums/form-action.enum';
+import {select, Store} from '@ngrx/store';
+import {VideoActions, VideoState} from '../../../video/store';
+import {selectLoading} from '../../../../shared/store/load';
 
 @Component({
   selector: 'app-form-report-container',
@@ -16,19 +18,27 @@ export class FormReportContainerComponent implements OnInit, OnDestroy {
   videos: DataSelectInterface[];
   destroyed$: Subject<void> = new Subject<void>();
 
-  constructor(private _service: VideoService) {
+  loading$: Observable<boolean> = this._store.pipe(select(selectLoading));
+  loading: boolean;
+
+  constructor(private _store: Store<VideoState>) {
   }
 
   ngOnInit() {
+    this.loading$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((result) => {
+      this.loading = result;
+    })
+    this._store.dispatch(VideoActions.listVideo());
     this.getVideos();
   }
 
   getVideos(): void {
-    this.videos$ = this._service.list();
     this.videos$.pipe(
       takeUntil(this.destroyed$)
-    ).subscribe((result: VideoInterface[]) => {
-      this.videos = this.formatObservableToDataSelect(result);
+    ).subscribe((result: ReadonlyArray<VideoInterface>) => {
+      this.videos = this.formatObservableToDataSelect([...result]);
     });
   }
 

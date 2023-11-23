@@ -7,6 +7,10 @@ import {VideoListComponent} from './components/video-list/video-list.component';
 import {DataTableComponent} from '../../core/data-table/data-table.component';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
+import {EffectsModule} from '@ngrx/effects';
+import {VIDEO_STATE_NAME, VideoEffect, VideoReducer} from './store';
+import {StoreModule} from '@ngrx/store';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import {ButtonModule} from 'primeng/button';
     // table
     TableModule,
     DataTableComponent,
-    ButtonModule
+    ButtonModule,
+    ProgressSpinnerModule,
+    // store
+    EffectsModule.forFeature([VideoEffect]),
+    StoreModule.forFeature(VIDEO_STATE_NAME, VideoReducer.reducer)
   ]
 })
 
