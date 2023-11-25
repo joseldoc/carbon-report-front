@@ -9,6 +9,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     // core components
     LayoutComponent,

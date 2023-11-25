@@ -1,28 +1,34 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject, takeUntil} from 'rxjs';
 import {VideoInterface} from '../../../video/model/video.interface';
 import {DataSelectInterface} from '../../../../shared/model/data-select.interface';
 import {FormActionsEnum} from '../../../../shared/enums/form-action.enum';
 import {select, Store} from '@ngrx/store';
-import {selectVideos, VideoActions, VideoState} from '../../../video/store';
+import {selectVideos, VideoActions} from '../../../video/store';
 import {selectLoading} from '../../../../shared/store/load';
+import {FolderInterface} from '../../../folder/model/folder.interface';
+import {FolderActions, selectFolders} from '../../../folder/store';
 
 @Component({
   selector: 'app-form-report-container',
   templateUrl: './form-report-container.component.html',
-  styleUrls: ['./form-report-container.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./form-report-container.component.css']
 })
 export class FormReportContainerComponent implements OnInit, OnDestroy {
 
+  //streams
   videos$: Observable<ReadonlyArray<VideoInterface>> = this._store.pipe(select(selectVideos));
-  videos: DataSelectInterface[];
+  videos: DataSelectInterface[] = [];
+  folders$: Observable<ReadonlyArray<FolderInterface>> = this._store.pipe(select(selectFolders));
+  folders: DataSelectInterface[] = [];
   destroyed$: Subject<void> = new Subject<void>();
 
   loading$: Observable<boolean> = this._store.pipe(select(selectLoading));
   loading: boolean;
 
-  constructor(private _store: Store<VideoState>) {
+  constructor(private _store: Store) {
+    this.getVideos();
+    this.getFolders();
   }
 
   ngOnInit() {
@@ -31,17 +37,23 @@ export class FormReportContainerComponent implements OnInit, OnDestroy {
     ).subscribe((result) => {
       this.loading = result;
     })
-    this.getVideos();
   }
 
   getVideos(): void {
-    this._store.dispatch(VideoActions.listVideo());
+    this._store.dispatch(FolderActions.listFolder());
     this.videos$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((result: ReadonlyArray<VideoInterface>) => {
-      if (result.length != 0) {
-        this.videos = this.formatObservableToDataSelect([...result]);
-      }
+      this.videos = this.formatObservableToDataSelect([...result]);
+    });
+  }
+
+  getFolders(): void {
+    this._store.dispatch(VideoActions.listVideo());
+    this.folders$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((result: ReadonlyArray<FolderInterface>) => {
+      this.folders = this.formatObservableToDataSelect([...result]);
     });
   }
 
@@ -57,7 +69,7 @@ export class FormReportContainerComponent implements OnInit, OnDestroy {
   formAction(data: { value: any, action: FormActionsEnum }): void {
     switch (data.action) {
       case  FormActionsEnum.GENERATE:
-        // generate report here
+        // Generate report here
         return;
     }
   }

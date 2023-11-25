@@ -1,25 +1,27 @@
-<form (ngSubmit)="emitAction()"
-      [formGroup]="reportForm">
-  <div class="m-4">
+<form (ngSubmit)="emitAction()" [formGroup]="reportForm">
+  <div class="m-4 formgroup-inline">
     <div class="field">
-      <label for="firstname1">{{dataConst.forms.vueLabel}}</label>
-      <input id="firstname1" type="text" [formControlName]="dataConst.forms.view"
-             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+      <label>{{dataConst.forms.vueLabel}}</label>
+      <p-inputNumber inputId="integeronly"
+                     [formControlName]="dataConst.forms.view"
+                     formControlName="value">
+      </p-inputNumber>
     </div>
-    <div class="filed">
+    <div class="field">
       <p-multiSelect
+        class="multiselect-custom-virtual-scroll"
         [options]="videos"
         [formControlName]="dataConst.forms.selectedVideo"
         optionLabel="name"
-        [placeholder]="dataConst.forms.selectVideoLabel"
-      >
+        [placeholder]="dataConst.forms.selectVideoLabel">
       </p-multiSelect>
     </div>
-    <div class="field">
-      <p-button
-        [disabled]="reportForm.invalid"
-        [loading]="loading"
-        [label]="dataConst.forms.generate" type="sumbit"></p-button>
-    </div>
+    <p-button
+      [disabled]="reportForm.invalid"
+      [loading]="loading"
+      [label]="dataConst.forms.generate"
+      [type]="'sumbit'">
+    </p-button>
   </div>
-</form>
+  <!--</form>-->
+
