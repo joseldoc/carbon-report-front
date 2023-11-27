@@ -4,6 +4,7 @@ export interface ColumnTableInterface<T> {
   headerName: string,
   fieldName: keyof T,
   isModelProperty?: boolean,
+  isDate?: boolean
 }
 
 export interface TableActionEmitInterface<T> {

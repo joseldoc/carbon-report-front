@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="grid">
+    <div class="col-3">
+      <!-- form report component -->
+      <app-report-form
+        [videos]="videos"
+        (action)="formAction($event)"
+        [loading]="loading"
+        [folders]="folders"
+      ></app-report-form>
+      <!-- form report component -->
+    </div>
+
+    <div class="col-9">
+      <div class="text-center">
+        <div class="text-center" *ngIf="loading">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+      </div>
+      <!-- list report component -->
+
+      <app-report-list
+        [reports]="reports"
+        [loading]="loading"
+        [columns]="columns"
+      ></app-report-list>
+      <!-- End list report component -->
+    </div>
+  </div>
+</div>
