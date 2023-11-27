@@ -1,0 +1,10 @@
+export enum ListReportEnum {
+  GENERATE_EXCEL = 'GENERATE_EXCEL',
+  GENERATE_PDF = 'GENERATE_PDF',
+}
+
+export enum FormReportEnum {
+  ADD_INPUT_FORM = 'ADD_INPUT_FORM',
+  REMOVE_INPUT_FORM = 'REMOVE_INPUT_FORM',
+  CREATE = 'CREATE'
+}

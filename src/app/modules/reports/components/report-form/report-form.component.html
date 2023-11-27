@@ -1,27 +1,49 @@
-<form (ngSubmit)="emitAction()" [formGroup]="reportForm">
-  <div class="m-4 formgroup-inline">
-    <div class="field">
-      <label>{{dataConst.forms.vueLabel}}</label>
-      <p-inputNumber inputId="integeronly"
-                     [formControlName]="dataConst.forms.view"
-                     formControlName="value">
-      </p-inputNumber>
+<p-dialog header="Formulaire de création" [(visible)]="visible" [modal]="true"
+          [style]="{ width: '40vw', height: '400vw' }"
+          [draggable]="true"
+          [resizable]="true">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Creation de Rapport</span>
+  </ng-template>
+  <form [formGroup]="reportForm">
+    <div formArrayName="fields">
+      <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i">
+        <div class="formgrid grid">
+          <div class="field col-12 md:col-6 pr-2 w-full">
+            <label for="integeronly">{{dataConst.forms.vueLabel}}</label>
+            <p-inputNumber inputId="integeronly" class="w-full" [style]="{width: '35vw'}"
+                           [formControlName]="dataConst.forms.view">
+            </p-inputNumber>
+          </div>
+
+          <div class="field col-12 md:col-6 w-full">
+            <p-dropdown class="w-full" appendTo="body" [style]="{width: '35vw'}"
+                        [options]="videos"
+                        [formControlName]="dataConst.forms.selectedVideo"
+                        [placeholder]="dataConst.forms.selectVideoLabel"
+                        optionLabel="name"></p-dropdown>
+          </div>
+          <div class="field col-12 md:col-6 w-full">
+            <p-button icon="pi pi-check" (click)="addField(i)"></p-button>
+            <p-button icon="pi pi-times" class="ml-1" (click)="removeField(i)"></p-button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="field">
-      <p-multiSelect
-        class="multiselect-custom-virtual-scroll"
-        [options]="videos"
-        [formControlName]="dataConst.forms.selectedVideo"
-        optionLabel="name"
-        [placeholder]="dataConst.forms.selectVideoLabel">
-      </p-multiSelect>
-    </div>
+  </form>
+  <ng-template pTemplate="footer">
     <p-button
       [disabled]="reportForm.invalid"
       [loading]="loading"
-      [label]="dataConst.forms.generate"
+      (click)="emitAction()"
+      [label]="dataConst.forms.add"
       [type]="'sumbit'">
     </p-button>
-  </div>
-  <!--</form>-->
+  </ng-template>
+</p-dialog>
 
+<fieldset class="rp-filters-group">
+  <legend>{{dataConst.wording.createReport}}</legend>
+  <p-button (click)="showDialog()" icon="pi pi-external-link" label="Creer rapport"></p-button>
+</fieldset>
+<!--</form>-->

@@ -1,0 +1,66 @@
+<!-- Dialog detail report -->
+<p-dialog [header]="'Rapport'" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+          [(visible)]="dialogVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+
+  <p-treeTable [value]="reportDetail" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Dossier</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+      <tr [ttRow]="rowNode">
+        <td>
+          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+          {{ rowData.id }}
+        </td>
+        <td>{{ rowData.dossier }}</td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+
+  <ng-template pTemplate="footer">
+    <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Fermer"
+            class="p-button-text"></button>
+  </ng-template>
+</p-dialog>
+<!-- end Dialog detail report -->
+
+<!-- end Dialog detail report -->
+<p-table #dt [columns]="columns" [value]="reports" responsiveLayout="stack" selectionMode="multiple"
+         [(selection)]="selectedReports"
+         [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true">
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="emitAction(listEnum.GENERATE_EXCEL)"
+              class="p-button-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+      <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="emitAction(listEnum.GENERATE_PDF)"
+              class="p-button-warning mr-2"
+              pTooltip="PDF" tooltipPosition="bottom"></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let h of headers">
+        <th *ngIf="h !== 'actions'">
+          {{h }}
+        </th>
+        <th *ngIf="h === 'actions'">
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <ng-container *ngFor="let col of columns">
+        <td *ngIf="col !== 'actions'">
+          {{  isDate(col) ? (rowData[col.fieldName] | date: 'dd/MM/yyyy') : rowData[col.fieldName] }}
+        </td>
+      </ng-container>
+      <td>
+        <button (click)="detail(rowData)" type="button" pButton pRipple icon="pi pi-eye"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

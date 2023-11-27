@@ -1,6 +1,11 @@
-import {VideoInterface} from '../../video/model/video.interface';
+import {ModeReportEnum} from '../enums/mode-report.enum';
 
 export interface InputFormReportInterface {
-  view?: number;
-  data: VideoInterface[] | Folder
+  data: InputFormReportItem[] // folder or Video
+  mode: ModeReportEnum;
+}
+
+export interface InputFormReportItem {
+  number_views: number;
+  id: number;
 }
